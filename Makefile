@@ -21,7 +21,7 @@ include $(DEVKITARM)/ds_rules
 #
 #---------------------------------------------------------------------------------
 $(info CURDIR=$(CURDIR))
-TARGET		:=	"$(notdir $(CURDIR))"
+TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data  
