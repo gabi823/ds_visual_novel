@@ -81,28 +81,38 @@ typedef struct {
     int length;
 } SceneSet;
 
-Scene scene1[] = {
+Scene introScene[] = {
     {"Welcome to the Duck Song! \n (VN Version)", TEXT_MIDDLE},
-    {"Let me tell you the duck story...", TEXT_MIDDLE},
+    {"Original Song by Bryant Oden 2009", TEXT_MIDDLE},
+    {"Adapted to VN format by Gabi, Christina, Esther, John", TEXT_MIDDLE},
+    {"Let's get started.", TEXT_MIDDLE},
+    {"Would you like to hear a tale?", TEXT_MIDDLE},
+    {"Okay :)", TEXT_MIDDLE}
+};
+
+Scene scene1[] = {
+    {"Let me tell you the duck story...", TEXT_TOP},
     {"A duck walked up to a lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
     {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
     {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said, 'No, we just sell lemonade.'", TEXT_BOTTOM},
+    {"The man said,", TEXT_BOTTOM},
+    {"'No, we just sell lemonade.'", TEXT_MIDDLE},
     {"'Can I get you a glass?'", TEXT_MIDDLE},
-    {"The duck said, 'I'll pass.'", TEXT_MIDDLE},
+    {"The duck said,", TEXT_BOTTOM},
+    {"'I'll pass.'", TEXT_MIDDLE},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
-    {"end 1.", TEXT_MIDDLE}
+    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM}
 };
 
 Scene scene2[] = {
-    {"The next day...", TEXT_MIDDLE},
+    {"The next day...", TEXT_TOP},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
     {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
     {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said, 'No, like I said yesterday,'", TEXT_BOTTOM},
+    {"The man said,", TEXT_BOTTOM},
+    {"'No, like I said yesterday,'", TEXT_MIDDLE},
     {"'We just sell lemonade, okay?'", TEXT_MIDDLE},
     {"'Why not give it a try?'", TEXT_MIDDLE},
     {"The duck said,", TEXT_BOTTOM},
@@ -111,16 +121,16 @@ Scene scene2[] = {
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
-    {"end 2.", TEXT_MIDDLE}
 };
 
 Scene scene3[] = {
-    {"The next day...", TEXT_MIDDLE},
+    {"The next day...", TEXT_TOP},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
     {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
     {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said, 'Look, this is getting old.'", TEXT_BOTTOM},
+    {"The man said,", TEXT_BOTTOM},
+    {"'Look, this is getting old.'", TEXT_MIDDLE},
     {"'I mean, lemonade's all we've ever sold.'", TEXT_MIDDLE},
     {"'Why not give it a go?'", TEXT_MIDDLE},
     {"The duck said,", TEXT_BOTTOM},
@@ -129,15 +139,16 @@ Scene scene3[] = {
     {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
-    {"end 3.", TEXT_MIDDLE}
 };
 
 Scene scene4[] = {
+    {"The next day...", TEXT_TOP},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
     {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
     {"'Got any grapes?'", TEXT_MIDDLE},
-    {"The man said, 'THAT'S IT!' >:(", TEXT_BOTTOM},
+    {"The man said,", TEXT_BOTTOM},
+    {"'THAT'S IT!' >:(", TEXT_MIDDLE},
     {"'If you don't stay away, Duck.'", TEXT_MIDDLE},
     {"'I'll glue you to a tree and leave you there all day, stuck.'", TEXT_MIDDLE},
     {"'So don't get too close!' >:(", TEXT_MIDDLE},
@@ -147,10 +158,10 @@ Scene scene4[] = {
     {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
-    {"end 4.", TEXT_MIDDLE}
 };
 
 Scene scene5[] = {
+    {"The next day...", TEXT_TOP},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
     {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
@@ -162,18 +173,18 @@ Scene scene5[] = {
     {"'Oh!'", TEXT_MIDDLE},
     {"Then one more question for you.", TEXT_BOTTOM},
     {"'Got any grapes?' \n (Bum bum bum, bum bum bum)", TEXT_MIDDLE},
-    {"end 5.", TEXT_MIDDLE}
     
 };
 
 Scene scene6[] = {
     {"The man just stopped, then he started to smile.", TEXT_BOTTOM},
     {"He started to laugh, he laughed for a while.", TEXT_BOTTOM},
-    {"He said, 'Come on, Duck.'", TEXT_BOTTOM},
+    {"He said,", TEXT_BOTTOM},
+    {"'Come on, Duck.'", TEXT_MIDDLE},
     {"'Let's walk to the store.'", TEXT_MIDDLE},
     {"'I'll buy you some grapes, so you won't have to ask anymore.'", TEXT_MIDDLE},
     {"So they walked to the store and the man bought some grapes.", TEXT_BOTTOM},
-    {"He gave one to the duck and the duck said.", TEXT_BOTTOM},
+    {"He gave one to the duck and the duck said,", TEXT_BOTTOM},
     {"'Hmmm... No thanks.'", TEXT_MIDDLE},
     {"'But y'know what sounds good?'", TEXT_MIDDLE},
     {"'It would make my day...'", TEXT_MIDDLE},
@@ -185,16 +196,16 @@ Scene scene6[] = {
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"end 6.", TEXT_MIDDLE}
 };
 
 Scene endScene[] = {
     {"You've reached the end.", TEXT_MIDDLE},
-    {"Thank you for reading the story!", TEXT_MIDDLE},
+    {"Thank you for reading The Duck Song!", TEXT_MIDDLE},
     {"We hope you enjoyed it. :D", TEXT_MIDDLE}
 };
 
 SceneSet allScenes[] = {
+    {introScene, sizeof(introScene) / sizeof(Scene)},
     {scene1, sizeof(scene1) / sizeof(Scene)},
     {scene2, sizeof(scene2) / sizeof(Scene)},
     {scene3, sizeof(scene3) / sizeof(Scene)},
