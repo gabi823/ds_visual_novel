@@ -10,6 +10,11 @@ typedef enum {
     TEXT_BOTTOM
 } TextPosition;
 
+typedef enum {
+    TEXT_NARRATION,
+    TEXT_DIALOGUE
+} TextType;
+
 int getTextRow(TextPosition pos) {
     switch (pos) {
         case TEXT_TOP:    return 2;
@@ -73,7 +78,9 @@ void printWrapped(int startRow, const char* text) {
 // Scene creation
 typedef struct {
     const char *text;
+    const char *speaker; // Will be null for narration
     TextPosition position; 
+    TextType type;
 } Scene;
 
 typedef struct {
@@ -82,126 +89,126 @@ typedef struct {
 } SceneSet;
 
 Scene introScene[] = {
-    {"Welcome to the Duck Song! \n (VN Version)", TEXT_MIDDLE},
-    {"Original Song by Bryant Oden 2009", TEXT_MIDDLE},
-    {"Adapted to VN format by Gabi, Christina, Esther, John", TEXT_MIDDLE},
-    {"Let's get started.", TEXT_MIDDLE},
-    {"Would you like to hear a tale?", TEXT_MIDDLE},
-    {"Okay :)", TEXT_MIDDLE}
+    {"Welcome to the Duck Song! \n (VN Version)", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Original Song by Bryant Oden 2009", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Adapted to VN format by Gabi, Christina, Esther, John", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Let's get started.", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Would you like to hear a tale?", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Okay :)", NULL, TEXT_MIDDLE, TEXT_NARRATION}
 };
 
 Scene scene1[] = {
-    {"Let me tell you the duck story...", TEXT_TOP},
-    {"A duck walked up to a lemonade stand.", TEXT_BOTTOM},
-    {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said,", TEXT_BOTTOM},
-    {"'No, we just sell lemonade.'", TEXT_MIDDLE},
-    {"'Can I get you a glass?'", TEXT_MIDDLE},
-    {"The duck said,", TEXT_BOTTOM},
-    {"'I'll pass.'", TEXT_MIDDLE},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM}
+    {"Let me tell you the duck story...", NULL, TEXT_TOP, TEXT_NARRATION},
+    {"A duck walked up to a lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'No, we just sell lemonade.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Can I get you a glass?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'I'll pass.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", NULL, TEXT_BOTTOM, TEXT_NARRATION}
 };
 
 Scene scene2[] = {
-    {"The next day...", TEXT_TOP},
-    {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
-    {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said,", TEXT_BOTTOM},
-    {"'No, like I said yesterday,'", TEXT_MIDDLE},
-    {"'We just sell lemonade, okay?'", TEXT_MIDDLE},
-    {"'Why not give it a try?'", TEXT_MIDDLE},
-    {"The duck said,", TEXT_BOTTOM},
-    {"'Goodbye.' :)", TEXT_MIDDLE},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
+    {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION},
+    {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'No, like I said yesterday,'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'We just sell lemonade, okay?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Why not give it a try?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Goodbye.' :)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", NULL, TEXT_BOTTOM, TEXT_NARRATION}
 };
 
 Scene scene3[] = {
-    {"The next day...", TEXT_TOP},
-    {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
-    {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?' >:)", TEXT_MIDDLE},
-    {"The man said,", TEXT_BOTTOM},
-    {"'Look, this is getting old.'", TEXT_MIDDLE},
-    {"'I mean, lemonade's all we've ever sold.'", TEXT_MIDDLE},
-    {"'Why not give it a go?'", TEXT_MIDDLE},
-    {"The duck said,", TEXT_BOTTOM},
-    {"'How 'bout... no.'", TEXT_MIDDLE},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
+    {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION},
+    {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Look, this is getting old.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'I mean, lemonade's all we've ever sold.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Why not give it a go?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'How 'bout... no.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", NULL, TEXT_BOTTOM, TEXT_NARRATION}
 };
 
 Scene scene4[] = {
-    {"The next day...", TEXT_TOP},
-    {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
-    {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?'", TEXT_MIDDLE},
-    {"The man said,", TEXT_BOTTOM},
-    {"'THAT'S IT!' >:(", TEXT_MIDDLE},
-    {"'If you don't stay away, Duck.'", TEXT_MIDDLE},
-    {"'I'll glue you to a tree and leave you there all day, stuck.'", TEXT_MIDDLE},
-    {"'So don't get too close!' >:(", TEXT_MIDDLE},
-    {"The duck said,", TEXT_BOTTOM},
-    {"'Adios.'", TEXT_MIDDLE},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", TEXT_BOTTOM},
+    {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION},
+    {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any grapes?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'THAT'S IT!' >:(", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'If you don't stay away, Duck.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'I'll glue you to a tree and leave you there all day, stuck.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'So don't get too close!' >:(", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Adios.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Til the very next day. \n (Bum bum bum bum, bum da dum)", NULL, TEXT_BOTTOM, TEXT_NARRATION}
 };
 
 Scene scene5[] = {
-    {"The next day...", TEXT_TOP},
-    {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
-    {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any glue?' :)", TEXT_MIDDLE},
-    {"The man paused and said,", TEXT_BOTTOM},
-    {"'... What?'", TEXT_MIDDLE},
-    {"'Got any glue?'", TEXT_MIDDLE},
-    {"'No, why would I--'", TEXT_MIDDLE},
-    {"'Oh!'", TEXT_MIDDLE},
-    {"Then one more question for you.", TEXT_BOTTOM},
-    {"'Got any grapes?' \n (Bum bum bum, bum bum bum)", TEXT_MIDDLE},
+    {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION},
+    {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any glue?' :)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"The man paused and said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'... What?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Got any glue?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'No, why would I--'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Oh!'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then one more question for you.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Got any grapes?' \n (Bum bum bum, bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE}
     
 };
 
 Scene scene6[] = {
-    {"The man just stopped, then he started to smile.", TEXT_BOTTOM},
-    {"He started to laugh, he laughed for a while.", TEXT_BOTTOM},
-    {"He said,", TEXT_BOTTOM},
-    {"'Come on, Duck.'", TEXT_MIDDLE},
-    {"'Let's walk to the store.'", TEXT_MIDDLE},
-    {"'I'll buy you some grapes, so you won't have to ask anymore.'", TEXT_MIDDLE},
-    {"So they walked to the store and the man bought some grapes.", TEXT_BOTTOM},
-    {"He gave one to the duck and the duck said,", TEXT_BOTTOM},
-    {"'Hmmm... No thanks.'", TEXT_MIDDLE},
-    {"'But y'know what sounds good?'", TEXT_MIDDLE},
-    {"'It would make my day...'", TEXT_MIDDLE},
-    {"'Do you think this store...'", TEXT_MIDDLE},
-    {"'Do you think this store...'", TEXT_MIDDLE},
-    {"'Do you think this store...'", TEXT_MIDDLE},
-    {"'Has any...'", TEXT_MIDDLE},
-    {"'lemonade?'", TEXT_MIDDLE},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle waddle)", TEXT_BOTTOM},
-    {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
+    {"The man just stopped, then he started to smile.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"He started to laugh, he laughed for a while.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"He said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Come on, Duck.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Let's walk to the store.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'I'll buy you some grapes, so you won't have to ask anymore.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"So they walked to the store and the man bought some grapes.", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"He gave one to the duck and the duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"'Hmmm... No thanks.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'But y'know what sounds good?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'It would make my day...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Do you think this store...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Do you think this store...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Do you think this store...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'Has any...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"'lemonade?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION}
 };
 
 Scene endScene[] = {
-    {"You've reached the end.", TEXT_MIDDLE},
-    {"Thank you for reading The Duck Song!", TEXT_MIDDLE},
-    {"We hope you enjoyed it. :D", TEXT_MIDDLE}
+    {"You've reached the end.", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"Thank you for reading The Duck Song!", NULL, TEXT_MIDDLE, TEXT_NARRATION},
+    {"We hope you enjoyed it. :D", NULL, TEXT_MIDDLE, TEXT_NARRATION}
 };
 
 SceneSet allScenes[] = {
@@ -254,14 +261,29 @@ int main(void) {
             // Top screen
             consoleSelect(&topScreen);
             consoleClear();
-            // printf("\x1b[%d;0H%s", getTextRow(activeScene[currentLine].position),
-            //     activeScene[currentLine].text);
-            printWrapped(getTextRow(activeScene[currentLine].position), activeScene[currentLine].text);
+            // printWrapped(getTextRow(activeScene[currentLine].position), activeScene[currentLine].text);
+            Scene current = activeScene[currentLine];
+            int baseRow = getTextRow(current.position);
+            if (current.type == TEXT_DIALOGUE) {
+                if (current.speaker != NULL) {
+                    // Prints speaker name on top
+                    char nameBuffer[64];
+                    sprintf(nameBuffer, "%s:", current.speaker);
+                    printWrapped(baseRow - 2, nameBuffer);
+                    // printf("\x1b[1;1H%s:", current.speaker);
+                }
+                // Dialogue printed below the speaker name
+                // printWrapped(5, current.text);
+                printWrapped(baseRow, current.text);
+            } else {
+                // Prints narration
+                // printWrapped(getTextRow(current.position), current.text);
+                printWrapped(baseRow, current.text);
+            }
             
             // Bottom Screen
             consoleSelect(&bottomScreen);
             consoleClear();
-            // iprintf("[Tap or press A to continue]");
             printCentered(10, "[Tap or press A to continue]");
 
             needsRedraw = 0;
