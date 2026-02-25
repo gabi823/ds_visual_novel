@@ -19,6 +19,57 @@ int getTextRow(TextPosition pos) {
     }
 }
 
+// Centers text in the middle of the screen
+void printCentered(int row, const char* text) {
+    // DS screen is 32 characters wide
+    int col = (32 - strlen(text)) / 2;
+    if (col < 0) {
+        col = 0;
+    }
+    printf("\x1b[%d;%dH%s", row, col, text);
+}
+
+// Wraps text by splitting by words, doesn't cut words in half
+void printWrapped(int startRow, const char* text) {
+    int col = 0;
+    int row = startRow;
+    char word[64];
+    int wordLen = 0;
+    while (*text) {
+        if (*text == '\n') {
+            row++;
+            col = 0;
+            text++;
+            continue;
+        }
+        wordLen = 0;
+        while (*text && *text != ' ' && *text != '\n') {
+            word[wordLen++] = *text++;
+        }
+        word[wordLen] = '\0';
+
+        // If word won't fit on current line, move to next line
+        if (col + wordLen >= 32) {
+            row++;
+            col = 0;
+        }
+        printf("\x1b[%d;%dH%s", row, col, word);
+        col += wordLen;
+
+        // Print space if there was one
+        if(*text == ' ') {
+            if(col + 1 >= 32) {
+                row++;
+                col = 0;
+            } else {
+                printf("\x1b[%d;%dH ", row, col);
+                col++;
+            }
+            text++;
+        }
+    }
+}
+
 // Scene creation
 typedef struct {
     const char *text;
@@ -31,12 +82,12 @@ typedef struct {
 } SceneSet;
 
 Scene scene1[] = {
-    {"Welcome to the Duck Song! \n(VN Version)", TEXT_MIDDLE},
+    {"Welcome to the Duck Song! \n (VN Version)", TEXT_MIDDLE},
     {"Let me tell you the duck story...", TEXT_MIDDLE},
     {"A duck walked up to a lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes? >:)'", TEXT_MIDDLE},
+    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
+    {"'Got any grapes?' >:)", TEXT_MIDDLE},
     {"The man said, 'No, we just sell lemonade.'", TEXT_BOTTOM},
     {"'Can I get you a glass?'", TEXT_MIDDLE},
     {"The duck said, 'I'll pass.'", TEXT_MIDDLE},
@@ -49,13 +100,13 @@ Scene scene2[] = {
     {"The next day...", TEXT_MIDDLE},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?'", TEXT_MIDDLE},
+    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
+    {"'Got any grapes?' >:)", TEXT_MIDDLE},
     {"The man said, 'No, like I said yesterday,'", TEXT_BOTTOM},
     {"'We just sell lemonade, okay?'", TEXT_MIDDLE},
     {"'Why not give it a try?'", TEXT_MIDDLE},
     {"The duck said,", TEXT_BOTTOM},
-    {"'Goodbye. :)'", TEXT_MIDDLE},
+    {"'Goodbye.' :)", TEXT_MIDDLE},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
     {"Then he waddled away. \n (Waddle waddle)", TEXT_BOTTOM},
@@ -67,8 +118,8 @@ Scene scene3[] = {
     {"The next day...", TEXT_MIDDLE},
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any grapes?'", TEXT_MIDDLE},
+    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
+    {"'Got any grapes?' >:)", TEXT_MIDDLE},
     {"The man said, 'Look, this is getting old.'", TEXT_BOTTOM},
     {"'I mean, lemonade's all we've ever sold.'", TEXT_MIDDLE},
     {"'Why not give it a go?'", TEXT_MIDDLE},
@@ -84,7 +135,7 @@ Scene scene3[] = {
 Scene scene4[] = {
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' (Bum bum bum)", TEXT_MIDDLE},
+    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
     {"'Got any grapes?'", TEXT_MIDDLE},
     {"The man said, 'THAT'S IT!' >:(", TEXT_BOTTOM},
     {"'If you don't stay away, Duck.'", TEXT_MIDDLE},
@@ -102,8 +153,8 @@ Scene scene4[] = {
 Scene scene5[] = {
     {"When the duck walked up to the lemonade stand.", TEXT_BOTTOM},
     {"And he said to the man, running the stand.", TEXT_BOTTOM},
-    {"'Hey!' (Bum bum bum)", TEXT_MIDDLE},
-    {"'Got any glue?'", TEXT_MIDDLE},
+    {"'Hey!' \n (Bum bum bum)", TEXT_MIDDLE},
+    {"'Got any glue?' :)", TEXT_MIDDLE},
     {"The man paused and said,", TEXT_BOTTOM},
     {"'... What?'", TEXT_MIDDLE},
     {"'Got any glue?'", TEXT_MIDDLE},
@@ -137,13 +188,20 @@ Scene scene6[] = {
     {"end 6.", TEXT_MIDDLE}
 };
 
+Scene endScene[] = {
+    {"You've reached the end.", TEXT_MIDDLE},
+    {"Thank you for reading the story!", TEXT_MIDDLE},
+    {"We hope you enjoyed it. :D", TEXT_MIDDLE}
+};
+
 SceneSet allScenes[] = {
     {scene1, sizeof(scene1) / sizeof(Scene)},
     {scene2, sizeof(scene2) / sizeof(Scene)},
     {scene3, sizeof(scene3) / sizeof(Scene)},
     {scene4, sizeof(scene4) / sizeof(Scene)},
     {scene5, sizeof(scene5) / sizeof(Scene)},
-    {scene6, sizeof(scene6) / sizeof(Scene)}
+    {scene6, sizeof(scene6) / sizeof(Scene)},
+    {endScene, sizeof(endScene) / sizeof(Scene)}
 };
 
 PrintConsole topScreen;
@@ -167,6 +225,10 @@ int main(void) {
     int totalSceneSets = sizeof(allScenes) / sizeof(SceneSet);
     int needsRedraw = 1;
 
+    // Blinking effect variables
+    int blinkCounter = 0;
+    int showPrompt = 1;
+
     while (1) {
         scanKeys();
         touchPosition touch;
@@ -181,15 +243,29 @@ int main(void) {
             // Top screen
             consoleSelect(&topScreen);
             consoleClear();
-            printf("\x1b[%d;0H%s", getTextRow(activeScene[currentLine].position),
-                activeScene[currentLine].text);
+            // printf("\x1b[%d;0H%s", getTextRow(activeScene[currentLine].position),
+            //     activeScene[currentLine].text);
+            printWrapped(getTextRow(activeScene[currentLine].position), activeScene[currentLine].text);
             
             // Bottom Screen
             consoleSelect(&bottomScreen);
             consoleClear();
-            iprintf("[Tap or press A to continue]");
+            // iprintf("[Tap or press A to continue]");
+            printCentered(10, "[Tap or press A to continue]");
 
             needsRedraw = 0;
+        }
+
+        // Blinking effect
+        blinkCounter++;
+        if (blinkCounter > 30) {
+            showPrompt = !showPrompt;
+            blinkCounter = 0;
+        }
+        consoleSelect(&bottomScreen);
+        printf("\x1b[10;0H                                ");
+        if (showPrompt) {
+            printCentered(10, "[Tap or press A to continue]");
         }
 
         // Advance the screen
@@ -204,8 +280,8 @@ int main(void) {
                 }
             }
             needsRedraw = 1;
-            swiWaitForVBlank();
         }
+        swiWaitForVBlank();
     }
     return 0;
 }
