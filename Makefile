@@ -155,10 +155,8 @@ $(OUTPUT).elf	:	$(OFILES)
 # add additional rules like this for each image extension
 # you use in the graphics folders 
 #---------------------------------------------------------------------------------
-%.s %.h	: %.png %.grit
-#---------------------------------------------------------------------------------
-	grit $< -fts -o$*
-
+%.s %.h : %.png
+	grit $< -gB8 -gTFF00FF -fts -o$*
  
 -include $(DEPENDS)
  
