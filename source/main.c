@@ -7,13 +7,14 @@
 #include "duck.h"
 #include "man.h"
 
-
+// Text formatting/layout
 typedef enum {
     TEXT_TOP,
     TEXT_MIDDLE,
     TEXT_BOTTOM
 } TextPosition;
 
+// Distinction between speakers
 typedef enum {
     TEXT_NARRATION,
     TEXT_DIALOGUE
@@ -28,12 +29,14 @@ int getTextRow(TextPosition pos) {
     }
 }
 
+// Centers text in the middle of the screen
 void printCentered(int row, const char* text, int offsetX, int offsetY) {
     int col = (32 - strlen(text)) / 2 + offsetX;
     if (col < 0) col = 0;
     printf("\x1b[%d;%dH%s", row + offsetY, col, text);
 }
 
+// Wraps text by splitting words, doesn't cut words in half
 void printWrapped(int startRow, const char* text, int offsetX, int offsetY) {
     int col = offsetX;          
     int row = startRow + offsetY;  
@@ -53,6 +56,7 @@ void printWrapped(int startRow, const char* text, int offsetX, int offsetY) {
         }
         word[wordLen] = '\0';
 
+        // If word won't fit on current line, move to next line
         if (col + wordLen >= 32) {
             row++;
             col = offsetX;
@@ -60,6 +64,7 @@ void printWrapped(int startRow, const char* text, int offsetX, int offsetY) {
         printf("\x1b[%d;%dH%s", row, col, word);
         col += wordLen;
 
+        // Print space if there was one
         if (*text == ' ') {
             if (col + 1 >= 32) {
                 row++;
@@ -73,7 +78,7 @@ void printWrapped(int startRow, const char* text, int offsetX, int offsetY) {
     }
 }
 
-
+// Background creation
 typedef struct {
     const unsigned int *bitmap;
     const unsigned short *palette;
@@ -102,9 +107,10 @@ void loadBackground(Background *bg) {
     BG_PALETTE[255] = 0x7FFF;
 }
 
+// Scene creation
 typedef struct {
     const char *text;
-    const char *speaker;
+    const char *speaker; // Will be NULL for narration
     TextPosition position;
     TextType type;
     Background *bg;  // NULL = keep current, set = swap to this
@@ -263,11 +269,13 @@ SceneSet allScenes[] = {
 PrintConsole bottomScreen;
 
 int main(void) {
+    // Set up DS
     videoSetMode(MODE_5_2D);
     vramSetBankA(VRAM_A_MAIN_BG);
 
     bgId = bgInit(3, BgType_Bmp8, BgSize_B8_256x256, 0, 0);
 
+    // Initialize consoles for top and bottom screens, load in backgrounds
     PrintConsole topScreen;
     consoleInit(&topScreen, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 6, true, true);
 
@@ -278,12 +286,14 @@ int main(void) {
     vramSetBankC(VRAM_C_SUB_BG);
     consoleInit(&bottomScreen, 0, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 
+    // Variables to move through scenes
     int currentSceneSet = 0;
     int currentLine = 0;
     int totalSceneSets = ARRAY_LEN(allScenes);
     int needsRedraw = 1;
     int lastSceneSet = -1;
 
+    // Blinking effects variables
     int blinkCounter = 0;
     int showPrompt = 1;
 
@@ -321,6 +331,7 @@ int main(void) {
             needsRedraw = 0;
         }
 
+        // Blinking effects
         blinkCounter++;
         if (blinkCounter > 30) {
             showPrompt = !showPrompt;
@@ -332,6 +343,7 @@ int main(void) {
             printCentered(10, "[Tap or press A to continue]", 0, 0);
         }
 
+        // Advance to the next screen
         if ((keyPressed & KEY_A) || (keyPressed & KEY_TOUCH)) {
             currentLine++;
             if (currentLine >= activeSet->length) {
