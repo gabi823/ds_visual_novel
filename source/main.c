@@ -305,6 +305,8 @@ int main(void) {
         SceneSet *activeSet = &allScenes[currentSceneSet];
         Scene *activeScene = activeSet->scenes;
 
+        int atTheEnd = (currentSceneSet == totalSceneSets - 1 && currentLine == activeSet->length - 1);
+
         if (currentSceneSet != lastSceneSet) {
             loadBackground(activeSet->bg);
             lastSceneSet = currentSceneSet;
@@ -343,11 +345,15 @@ int main(void) {
         printf("\x1b[10;0H                                ");
         printf("\x1b[11;1H                                ");
         if (showPrompt) {
-            printCentered(10, "[Tap/press A to continue \n Press B to go back]", 0, 0);
+            if (atTheEnd) {
+                printCentered(10, "[Press START to restart]", 0, 0);
+            } else {
+                printCentered(10, "[Tap/press A to continue \n Press B to go back]", 0, 0);
+            }
         }
 
         // Advance to the next screen
-        if ((keyPressed & KEY_A) || (keyPressed & KEY_TOUCH)) {
+        if ((!atTheEnd && (keyPressed & KEY_A)) || (keyPressed & KEY_TOUCH)) {
             currentLine++;
             if (currentLine >= activeSet->length) {
                 currentSceneSet++;
@@ -373,6 +379,13 @@ int main(void) {
                     currentLine = previousSet->length - 1;
                 }
             }
+            needsRedraw = 1;
+        }
+
+        if (atTheEnd && (keyPressed & KEY_START)) {
+            currentSceneSet = 0;
+            currentLine = 0;
+            lastSceneSet = -1;
             needsRedraw = 1;
         }
 
