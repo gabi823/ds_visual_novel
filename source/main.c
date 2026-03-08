@@ -305,6 +305,8 @@ int main(void) {
         SceneSet *activeSet = &allScenes[currentSceneSet];
         Scene *activeScene = activeSet->scenes;
 
+        int atTheEnd = (currentSceneSet == totalSceneSets - 1 && currentLine == activeSet->length - 1);
+
         if (currentSceneSet != lastSceneSet) {
             loadBackground(activeSet->bg);
             lastSceneSet = currentSceneSet;
@@ -317,6 +319,7 @@ int main(void) {
                 loadBackground(current.bg);
             }
 
+            // Displaying for top screen
             consoleSelect(&topScreen);
             consoleClear();
 
@@ -334,18 +337,27 @@ int main(void) {
 
         // Blinking effects
         blinkCounter++;
-        if (blinkCounter > 30) {
+        if (blinkCounter > 45) {
             showPrompt = !showPrompt;
             blinkCounter = 0;
         }
+
+        // Displaying for bottom screen
         consoleSelect(&bottomScreen);
+        consoleClear();
         printf("\x1b[10;0H                                ");
+        printf("\x1b[11;1H                                ");
         if (showPrompt) {
-            printCentered(10, "[Tap or press A to continue]", 0, 0);
+            if (atTheEnd) {
+                printCentered(10, "[Press START to restart]", 0, 0);
+            } else {
+                printCentered(10, "[Tap/press A to continue]", 0, 0);
+                printCentered(11, "[Press B to go back]", 0, 0);
+            }
         }
 
         // Advance to the next screen
-        if ((keyPressed & KEY_A) || (keyPressed & KEY_TOUCH)) {
+        if ((!atTheEnd && (keyPressed & KEY_A)) || (keyPressed & KEY_TOUCH)) {
             currentLine++;
             if (currentLine >= activeSet->length) {
                 currentSceneSet++;
@@ -355,6 +367,30 @@ int main(void) {
                     currentLine = activeSet->length - 1;
                 }
             }
+            needsRedraw = 1;
+        }
+
+        // Go back to the previous screen
+        if (keyPressed & KEY_B) {
+            currentLine--;
+            if (currentLine < 0) {
+                currentSceneSet--;
+                if (currentSceneSet < 0) {
+                    currentSceneSet = 0;
+                    currentLine = 0;
+                } else {
+                    SceneSet *previousSet = &allScenes[currentSceneSet];
+                    currentLine = previousSet->length - 1;
+                }
+            }
+            needsRedraw = 1;
+        }
+
+        // Restart back to beginning of visual novel
+        if (atTheEnd && (keyPressed & KEY_START)) {
+            currentSceneSet = 0;
+            currentLine = 0;
+            lastSceneSet = -1;
             needsRedraw = 1;
         }
 
