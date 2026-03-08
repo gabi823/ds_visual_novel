@@ -319,6 +319,7 @@ int main(void) {
                 loadBackground(current.bg);
             }
 
+            // Displaying for top screen
             consoleSelect(&topScreen);
             consoleClear();
 
@@ -340,6 +341,8 @@ int main(void) {
             showPrompt = !showPrompt;
             blinkCounter = 0;
         }
+
+        // Displaying for bottom screen
         consoleSelect(&bottomScreen);
         consoleClear();
         printf("\x1b[10;0H                                ");
@@ -383,6 +386,7 @@ int main(void) {
             needsRedraw = 1;
         }
 
+        // Restart back to beginning of visual novel
         if (atTheEnd && (keyPressed & KEY_START)) {
             currentSceneSet = 0;
             currentLine = 0;
