@@ -31,6 +31,7 @@ int getTextRow(TextPosition pos) {
 
 // Centers text in the middle of the screen
 void printCentered(int row, const char* text, int offsetX, int offsetY) {
+    // DS screen is 32 characters wide
     int col = (32 - strlen(text)) / 2 + offsetX;
     if (col < 0) col = 0;
     printf("\x1b[%d;%dH%s", row + offsetY, col, text);
