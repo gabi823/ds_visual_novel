@@ -348,7 +348,8 @@ int main(void) {
             if (atTheEnd) {
                 printCentered(10, "[Press START to restart]", 0, 0);
             } else {
-                printCentered(10, "[Tap/press A to continue \n Press B to go back]", 0, 0);
+                printCentered(10, "[Tap/press A to continue]", 0, 0);
+                printCentered(11, "[Press B to go back]", 0, 0);
             }
         }
 
