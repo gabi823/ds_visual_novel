@@ -334,14 +334,16 @@ int main(void) {
 
         // Blinking effects
         blinkCounter++;
-        if (blinkCounter > 30) {
+        if (blinkCounter > 45) {
             showPrompt = !showPrompt;
             blinkCounter = 0;
         }
         consoleSelect(&bottomScreen);
+        consoleClear();
         printf("\x1b[10;0H                                ");
+        printf("\x1b[11;1H                                ");
         if (showPrompt) {
-            printCentered(10, "[Tap or press A to continue]", 0, 0);
+            printCentered(10, "[Tap/press A to continue \n Press B to go back]", 0, 0);
         }
 
         // Advance to the next screen
@@ -353,6 +355,22 @@ int main(void) {
                 if (currentSceneSet >= totalSceneSets) {
                     currentSceneSet = totalSceneSets - 1;
                     currentLine = activeSet->length - 1;
+                }
+            }
+            needsRedraw = 1;
+        }
+
+        // Go back to the previous screen
+        if (keyPressed & KEY_B) {
+            currentLine--;
+            if (currentLine < 0) {
+                currentSceneSet--;
+                if (currentSceneSet < 0) {
+                    currentSceneSet = 0;
+                    currentLine = 0;
+                } else {
+                    SceneSet *previousSet = &allScenes[currentSceneSet];
+                    currentLine = previousSet->length - 1;
                 }
             }
             needsRedraw = 1;
