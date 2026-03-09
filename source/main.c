@@ -278,7 +278,8 @@ int main(void) {
 
     // Initialize consoles for top and bottom screens, load in backgrounds
     PrintConsole topScreen;
-    consoleInit(&topScreen, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 6, true, true);
+    // Changed map base from 22 to 24 so that text and bitmap layer don't overlap in VRAM
+    consoleInit(&topScreen, 0, BgType_Text4bpp, BgSize_T_256x256, 24, 6, true, true);
 
     bgSetPriority(topScreen.bgId, 0);
     bgSetPriority(bgId, 3);
