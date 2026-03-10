@@ -131,12 +131,11 @@ Scene introScene[] = {
     {"Welcome to the Duck Song! \n (VN Version)", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
     {"Original Song by Bryant Oden 2009", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL},
     {"Adapted to VN format by Gabi, Christina, Esther, John", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
-    {"Let's get started.", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
-    {"Would you like to hear a tale?", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
-    {"Okay :)", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0}
+    {"Let's get started.", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0}
 };
 
 Scene scene1[] = {
+    {"Okay :)", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
     {"Let me tell you the duck story...", NULL, TEXT_TOP, TEXT_NARRATION, NULL, 0, 0},
     {"A duck walked up to a lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, NULL, 0, 0},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, NULL, 0, 0},
@@ -245,6 +244,13 @@ Scene scene6[] = {
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade}
 };
 
+Scene firstChoiceRefuse[] = {
+    {"Boooo.", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
+    {"You're no fun. :C", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
+    {"Well then.", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL, 0, 0},
+    {"The Duck, the Man, and we the team bid you goodbye.", NULL, TEXT_MIDDLE, TEXT_NARRATION, 0, 0}
+};
+
 Scene endScene[] = {
     {"You've reached the end.", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL},
     {"Thank you for reading The Duck Song!", NULL, TEXT_MIDDLE, TEXT_NARRATION, NULL},
@@ -263,11 +269,29 @@ SceneSet allScenes[] = {
     { scene4,        ARRAY_LEN(scene4),        &bg_lemonade },
     { scene5,        ARRAY_LEN(scene5),        &bg_lemonade },
     { scene6,        ARRAY_LEN(scene6),        &bg_lemonade },
+    { firstChoiceRefuse, ARRAY_LEN(firstChoiceRefuse), &bg_none},
     { endScene,      ARRAY_LEN(endScene),      &bg_none },
 };
 
 
 PrintConsole bottomScreen;
+
+// Choice menu function
+void drawChoiceMenu(int selectedChoice) {
+    consoleSelect(&bottomScreen);
+    consoleClear();
+    printCentered(8, "Would you like to hear a tale?", 0, 0);
+    if (selectedChoice == 0) {
+        printCentered(10, "> Yes", 0, 0);
+    } else {
+        printCentered(10, "  Yes", 0, 0);
+    }
+    if (selectedChoice == 1) {
+        printCentered(12, "> No", 0, 0);
+    } else {
+        printCentered(12, "  No", 0, 0);
+    }
+}
 
 int main(void) {
     // Set up DS
@@ -295,6 +319,10 @@ int main(void) {
     int needsRedraw = 1;
     int lastSceneSet = -1;
 
+    // Choice variables for branching scenes
+    int inChoice = 0;
+    int selectedChoice = 0;
+
     // Blinking effects variables
     int blinkCounter = 0;
     int showPrompt = 1;
@@ -307,6 +335,12 @@ int main(void) {
         Scene *activeScene = activeSet->scenes;
 
         int atTheEnd = (currentSceneSet == totalSceneSets - 1 && currentLine == activeSet->length - 1);
+
+        // Triggers choice at the end of introScene
+        if (currentSceneSet == 0 && currentLine == activeSet->length - 1 && !inChoice) {
+            inChoice = 1;
+            selectedChoice = 0;
+        }
 
         if (currentSceneSet != lastSceneSet) {
             loadBackground(activeSet->bg);
@@ -336,6 +370,35 @@ int main(void) {
             needsRedraw = 0;
         }
 
+        // Choice handler
+        if (inChoice) {
+            if (keyPressed & KEY_UP) {
+                selectedChoice--;
+                if (selectedChoice < 0) {
+                    selectedChoice = 1;
+                }
+            }
+            if (keyPressed & KEY_DOWN) {
+                selectedChoice++;
+                if (selectedChoice > 1) {
+                    selectedChoice = 0;
+                }
+            }
+            drawChoiceMenu(selectedChoice);
+            if (keyPressed & KEY_A) {
+                inChoice = 0;
+                if (selectedChoice == 0) {
+                    currentSceneSet = 1; // normal story
+                } else {
+                    currentSceneSet = 7; // refusal scene
+                }
+                currentLine = 0;
+                needsRedraw = 1;
+            }
+            swiWaitForVBlank();
+            continue;
+        }
+
         // Blinking effects
         blinkCounter++;
         if (blinkCounter > 45) {
@@ -361,7 +424,12 @@ int main(void) {
         if ((!atTheEnd && (keyPressed & KEY_A)) || (keyPressed & KEY_TOUCH)) {
             currentLine++;
             if (currentLine >= activeSet->length) {
-                currentSceneSet++;
+                // Skip refusal scene if coming from main story
+                if (currentSceneSet == 6) {
+                    currentSceneSet = 8;
+                } else {
+                    currentSceneSet++;
+                }
                 currentLine = 0;
                 if (currentSceneSet >= totalSceneSets) {
                     currentSceneSet = totalSceneSets - 1;
