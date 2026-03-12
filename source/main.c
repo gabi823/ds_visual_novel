@@ -7,6 +7,9 @@
 #include "duck.h"
 #include "man.h"
 
+#define COLOR_BLACK  "\x1b[30m"
+#define COLOR_RESET  "\x1b[39m"
+
 // Text formatting/layout
 typedef enum {
     TEXT_TOP,
@@ -139,13 +142,13 @@ Scene scene1[] = {
     {"Let me tell you the duck story...", NULL, TEXT_TOP, TEXT_NARRATION, NULL, 0, 0},
     {"A duck walked up to a lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, NULL, 0, 0},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, NULL, 0, 0},
-    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 10, 10},  
-    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},               
+    {" Hey! \n (Bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},  
+    {"Got any grapes? >:)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 11, 8},               
     {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},               
-    {"'No, we just sell lemonade.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'Can I get you a glass?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
+    {" No, we just \n sell lemonade.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" Can I get \n you a glass?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
     {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},            
-    {"'I'll pass.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},                      
+    {"I'll pass.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 14, 8},                      
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade}, 
     {"Til the very next day. \n (Bum bum bum bum, bum da dum)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade}
 };
@@ -154,14 +157,14 @@ Scene scene2[] = {
     {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION, &bg_lemonade},
     {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {" Hey! \n (Bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
+    {"Got any grapes? >:)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 11, 8},
     {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'No, like I said yesterday,'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'We just sell lemonade, okay?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'Why not give it a try?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
+    {" No, like I \n said yesterday,", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" We just sell \n lemonade, okay?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" Why not give \n it a try?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
     {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Goodbye.' :)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {"Goodbye. :)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
@@ -172,14 +175,14 @@ Scene scene3[] = {
     {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION, &bg_lemonade},
     {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"'Got any grapes?' >:)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {" Hey! \n (Bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
+    {"Got any grapes? >:)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 11, 8},
     {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Look, this is getting old.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'I mean, lemonade's all we've ever sold.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'Why not give it a go?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
+    {" Look, this is \n getting old.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" I mean, lemonade's \n all we've ever sold.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 1, 9},
+    {" Why not give \n it a go?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
     {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'How 'bout... no.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {"How 'bout... no.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
@@ -190,15 +193,15 @@ Scene scene4[] = {
     {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION, &bg_lemonade},
     {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"'Got any grapes?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {" Hey! \n (Bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
+    {"Got any grapes?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
     {"The man said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'THAT'S IT!' >:(", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'If you don't stay away, Duck.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'I'll glue you to a tree and leave you there all day, stuck.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'So don't get too close!' >:(", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
+    {"THAT'S IT! >:(", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" If you don't \n stay away, Duck.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {" I'll glue you to \n a tree and leave \n you there all day, \n stuck.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 1.5, 8},
+    {" So don't get \n too close!' >:(", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
     {"The duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Adios.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {"Adios.", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 14, 8},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
@@ -209,15 +212,15 @@ Scene scene5[] = {
     {"The next day...", NULL, TEXT_TOP, TEXT_NARRATION, &bg_lemonade},
     {"When the duck walked up to the lemonade stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
     {"And he said to the man, running the stand.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'Hey!' \n (Bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"'Got any glue?' :)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
+    {" Hey! \n (Bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
+    {"Got any glue? :)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
     {"The man paused and said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"'... What?'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'Got any glue?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"'No, why would I--'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"'Oh!'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
-    {"Then one more question for you.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &duck},
-    {"'Got any grapes?' \n (Bum bum bum, bum bum bum)", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck}
+    {"... What?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 8},
+    {"Got any glue?", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8},
+    {"No, why would I--", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 8},
+    {"Oh!", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &man, 2, 9},
+    {"Then one more \n question for you.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &duck, 12, 8},
+    {" Got any grapes? \n (Bum bum bum, bum bum bum)", NULL, TEXT_MIDDLE, TEXT_DIALOGUE, &duck, 12, 8}
 };
 
 Scene scene6[] = {
@@ -360,6 +363,13 @@ int main(void) {
 
             int baseRow = getTextRow(current.position);
 
+            // Set text color 
+            const char* textColor = (current.bg != NULL || activeSet->bg->bitmap != NULL) 
+                            ? COLOR_BLACK 
+                            : COLOR_RESET;
+
+            printf("%s", textColor);
+
             if (current.type == TEXT_DIALOGUE && current.speaker != NULL) {
                 char nameBuffer[64];
                 sprintf(nameBuffer, "%s:", current.speaker);
@@ -367,6 +377,7 @@ int main(void) {
             }
             printWrapped(baseRow, current.text, current.offsetX, current.offsetY);
 
+            printf(COLOR_RESET);
             needsRedraw = 0;
         }
 
