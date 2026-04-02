@@ -10,7 +10,7 @@
 Clone the repository and build:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ds-visual-novel.git
+git clone https://github.com/YOUR_USERNAME/ds_visual_novel.git
 cd ds-visual-novel
 make
 ```
