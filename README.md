@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- [devkitPro](https://devkitpro.org/wiki/Getting_Started) with devkitARM
-- [melonDS](https://melonds.kuribo64.net/downloads.php) (or DeSmuME) for testing
+- [devkitPro](https://devkitpro.org/wiki/Getting_Started) 
+- [melonDS](https://melonds.kuribo64.net/downloads.php) for emulation purposes
 
 ## Installation
 
