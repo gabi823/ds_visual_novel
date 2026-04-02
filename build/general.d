@@ -1,0 +1,1 @@
+general.o: general.s

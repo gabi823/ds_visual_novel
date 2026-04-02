@@ -1,0 +1,1 @@
+blank.o: blank.s

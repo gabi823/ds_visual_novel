@@ -281,133 +281,139 @@
 0201267c 00000056 T __aeabi_lmul
 0201267c 00000056 T __muldi3
 020126d4 T _fini
-020126e0 00000008 t ____aeabi_idiv0_from_arm
-020126e8 00000008 t ____aeabi_ldiv0_from_arm
-020126f0 T duckBitmap
-0201e6f0 T duckPal
-0201e8f0 T duck_on_the_rightBitmap
-0202a8f0 T duck_on_the_rightPal
-0202aaf0 T lemonade_sampleBitmap
-02036af0 T lemonade_samplePal
-02036cf0 T manBitmap
-02042cf0 T manPal
-020439b4 00000080 t dotab_stdout
-02043a34 00000102 T SIN_LUT
-02043b38 T default_font_bin
-02044338 T default_font_bin_end
-02044374 00000010 t zeroes.0
-02044384 00000010 t blanks.1
-02044394 0000006c T __action_table
-02044400 0000006c T __state_table
-0204446c 00000100 T __chclass
-0204456c 00000010 t zeroes.0
-0204457c 00000010 t blanks.1
-0204458c 00000022 t basefix.0
-020445b0 00000010 t zeroes.0
-020445c0 00000010 t blanks.1
-020445d0 00000101 T _ctype_
-020446d4 0000000c t p05.0
-020446e0 00000028 T __mprec_bigtens
-02044708 000000c8 T __mprec_tens
-020447d0 000035dc t categories
-02047dac 00000080 T dotab_stdnull
-02047e30 0000006c D allScenes
-02047e9c 00000048 D endScene
-02047ee4 00000060 D firstChoiceRefuse
-02047f44 000001c8 D scene6
-0204810c 00000120 D scene5
-0204822c 00000180 D scene4
-020483ac 00000168 D scene3
-02048514 00000168 D scene2
-0204867c 00000138 D scene1
-020487b4 00000060 D introScene
-02048814 00000008 D man
-0204881c 00000008 D duck
-02048824 00000008 D duck_on_right
-0204882c 00000008 D bg_lemonade
-02048834 00000020 D bgTransform
-02048854 00000020 D bgScrollTable
-02048874 00000020 D bgControl
-02048894 00000001 d firstConsoleInit.0
-02048898 00000004 D currentConsole
-0204889c 0000005c D defaultConsole
-020488f8 00000001 d count
-020488f9 00000001 d repeat
-020488fa 00000001 d delay
-020488fc 00000004 D __malloc_sbrk_base
-02048900 00000004 D __malloc_trim_threshold
-02048908 00000408 D __malloc_av_
-02048d10 0000016c D __global_locale
-02048e7c 0000000c D __sglue
-02048e88 00000004 D _impure_ptr
-02048e90 00000140 D _impure_data
-02048fd0 00001000 d handles
-02049fd0 0000000c d __stderr_handle
-02049fdc 0000000c d __stdout_handle
-02049fe8 0000000c d __stdin_handle
-02049ff4 0000008c D devoptab_list
-0204a080 r __EH_FRAME_BEGIN__
-0204a080 r __FRAME_END__
-0204a084 r __tls_info
-0204a090 d __frame_dummy_init_array_entry
-0204a090 d __init_array_start
-0204a090 d __preinit_array_end
-0204a090 d __preinit_array_start
-0204a094 d __do_global_dtors_aux_fini_array_entry
-0204a094 d __fini_array_start
-0204a094 d __init_array_end
-0204a098 d __fini_array_end
-0204a098 d __main_end
-0204a098 ? __tls_end
-0204a098 ? __tls_start
-0204a098 b completed.1
-0204a09c b object.0
-0204a0b4 00000004 B bgId
-0204a0b8 0000005c B bottomScreen
-0204a114 00000008 B bg_none
-0204a11c 00000008 B bgIsTextLut
-0204a124 00000140 B bgState
-0204a264 0000005c B currentCopy
-0204a2c0 00000002 b keysrepeat
-0204a2c4 00000004 b s_keypad
-0204a2c8 00000008 b s_sleepThreads
-0204a2d0 00000008 b s_joinThreads
-0204a2d8 00000070 b s_idleThread
-0204a348 00000070 b s_mainThread
-0204a3b8 00000004 b s_firstTask
-0204a3c0 00000008 b s_highTickCount
-0204a3c8 00000001 b s_tickInit
-0204a3cc 00000004 b s_defaultErrno.0
-0204a3d0 00000004 V __stacksize__
-0204a3d4 00000001 B g_isTwlMode
-0204a3d8 000001f0 b s_pxiChannels
-0204a5c8 00000004 b s_pxiRecvState
-0204a5cc 00000008 b s_pxiRecvQueue
-0204a5d4 00000004 b s_pxiSendMutex
-0204a5d8 00000008 b s_mailboxRecvQueue
-0204a5e0 00000200 b s_pmPxiThreadStack
-0204a7e0 00000070 b s_pmPxiThread
-0204a850 00000008 b s_pmState
-0204a858 00000028 B __malloc_current_mallinfo
-0204a880 00000004 B __malloc_max_total_mem
-0204a884 00000004 B __malloc_max_sbrked_mem
-0204a888 00000004 B __malloc_top_pad
-0204a88c 0000000c b __malloc_recursive_mutex
-0204a898 0000000c b __sfp_recursive_mutex
-0204a8a8 00000168 B __sf
-0204aa10 00000004 B __stdio_exit_handler
-0204aa14 00000004 b __hndl_lock
-0204aa18 00000004 B fake_heap_start
-0204aa1c 00000004 B fake_heap_end
-0204aa20 00000004 b heap_start.0
-0204aa24 b __heap_start_ntr
-0204aa24 b __main_bss_end
-0204aa40 r __heap_start_twl
-0204aa40 ? __twl_bss_end
-0204aa40 ? __twl_end
-0204aa40 ? __twl_start
-0204e0cc a __loadlist_start
-0204e0fc a __loadlist_end
+020126e0 00000008 t ____aeabi_ldiv0_from_arm
+020126e8 00000008 t ____aeabi_idiv0_from_arm
+020126f0 T blankBitmap
+0201e6f0 T blankPal
+0201e8f0 T duckBitmap
+0202a8f0 T duckPal
+0202aaf0 T duck_on_the_rightBitmap
+02036af0 T duck_on_the_rightPal
+02036cf0 T generalBitmap
+02042cf0 T generalPal
+02042ef0 T lemonade_sampleBitmap
+0204eef0 T lemonade_samplePal
+0204f0f0 T manBitmap
+0205b0f0 T manPal
+0205bdb4 00000080 t dotab_stdout
+0205be34 00000102 T SIN_LUT
+0205bf38 T default_font_bin
+0205c738 T default_font_bin_end
+0205c774 00000010 t zeroes.0
+0205c784 00000010 t blanks.1
+0205c794 0000006c T __action_table
+0205c800 0000006c T __state_table
+0205c86c 00000100 T __chclass
+0205c96c 00000010 t zeroes.0
+0205c97c 00000010 t blanks.1
+0205c98c 00000022 t basefix.0
+0205c9b0 00000010 t zeroes.0
+0205c9c0 00000010 t blanks.1
+0205c9d0 00000101 T _ctype_
+0205cad4 0000000c t p05.0
+0205cae0 00000028 T __mprec_bigtens
+0205cb08 000000c8 T __mprec_tens
+0205cbd0 000035dc t categories
+020601ac 00000080 T dotab_stdnull
+02060230 0000006c D allScenes
+0206029c 00000048 D endScene
+020602e4 00000060 D firstChoiceRefuse
+02060344 000001c8 D scene6
+0206050c 00000120 D scene5
+0206062c 00000180 D scene4
+020607ac 00000168 D scene3
+02060914 00000168 D scene2
+02060a7c 00000138 D scene1
+02060bb4 00000060 D introScene
+02060c14 00000008 D blank
+02060c1c 00000008 D general
+02060c24 00000008 D man
+02060c2c 00000008 D duck
+02060c34 00000008 D duck_on_right
+02060c3c 00000008 D bg_lemonade
+02060c44 00000020 D bgTransform
+02060c64 00000020 D bgScrollTable
+02060c84 00000020 D bgControl
+02060ca4 00000001 d firstConsoleInit.0
+02060ca8 00000004 D currentConsole
+02060cac 0000005c D defaultConsole
+02060d08 00000001 d count
+02060d09 00000001 d repeat
+02060d0a 00000001 d delay
+02060d0c 00000004 D __malloc_sbrk_base
+02060d10 00000004 D __malloc_trim_threshold
+02060d18 00000408 D __malloc_av_
+02061120 0000016c D __global_locale
+0206128c 0000000c D __sglue
+02061298 00000004 D _impure_ptr
+020612a0 00000140 D _impure_data
+020613e0 00001000 d handles
+020623e0 0000000c d __stderr_handle
+020623ec 0000000c d __stdout_handle
+020623f8 0000000c d __stdin_handle
+02062404 0000008c D devoptab_list
+02062490 r __EH_FRAME_BEGIN__
+02062490 r __FRAME_END__
+02062494 r __tls_info
+020624a0 d __frame_dummy_init_array_entry
+020624a0 d __init_array_start
+020624a0 d __preinit_array_end
+020624a0 d __preinit_array_start
+020624a4 d __do_global_dtors_aux_fini_array_entry
+020624a4 d __fini_array_start
+020624a4 d __init_array_end
+020624a8 d __fini_array_end
+020624a8 d __main_end
+020624a8 ? __tls_end
+020624a8 ? __tls_start
+020624a8 b completed.1
+020624ac b object.0
+020624c4 00000004 B bgId
+020624c8 0000005c B bottomScreen
+02062524 00000008 B bg_none
+0206252c 00000008 B bgIsTextLut
+02062534 00000140 B bgState
+02062674 0000005c B currentCopy
+020626d0 00000002 b keysrepeat
+020626d4 00000004 b s_keypad
+020626d8 00000008 b s_sleepThreads
+020626e0 00000008 b s_joinThreads
+020626e8 00000070 b s_idleThread
+02062758 00000070 b s_mainThread
+020627c8 00000004 b s_firstTask
+020627d0 00000008 b s_highTickCount
+020627d8 00000001 b s_tickInit
+020627dc 00000004 b s_defaultErrno.0
+020627e0 00000004 V __stacksize__
+020627e4 00000001 B g_isTwlMode
+020627e8 000001f0 b s_pxiChannels
+020629d8 00000004 b s_pxiRecvState
+020629dc 00000008 b s_pxiRecvQueue
+020629e4 00000004 b s_pxiSendMutex
+020629e8 00000008 b s_mailboxRecvQueue
+020629f0 00000200 b s_pmPxiThreadStack
+02062bf0 00000070 b s_pmPxiThread
+02062c60 00000008 b s_pmState
+02062c68 00000028 B __malloc_current_mallinfo
+02062c90 00000004 B __malloc_max_total_mem
+02062c94 00000004 B __malloc_max_sbrked_mem
+02062c98 00000004 B __malloc_top_pad
+02062c9c 0000000c b __malloc_recursive_mutex
+02062ca8 0000000c b __sfp_recursive_mutex
+02062cb8 00000168 B __sf
+02062e20 00000004 B __stdio_exit_handler
+02062e24 00000004 b __hndl_lock
+02062e28 00000004 B fake_heap_start
+02062e2c 00000004 B fake_heap_end
+02062e30 00000004 b heap_start.0
+02062e34 b __heap_start_ntr
+02062e34 b __main_bss_end
+02062e40 r __heap_start_twl
+02062e40 ? __twl_bss_end
+02062e40 ? __twl_end
+02062e40 ? __twl_start
+020664dc a __loadlist_start
+0206650c a __loadlist_end
 02400000 a __twl_lma
 02400000 a __twl_loadlist_lma
 02400000 a __twl_loadlist_start

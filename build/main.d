@@ -115,7 +115,9 @@ main.o: /Users/gabilong/Downloads/ds_visual_novel/source/main.c \
  /Users/gabilong/Downloads/ds_visual_novel/build/lemonade_sample.h \
  /Users/gabilong/Downloads/ds_visual_novel/build/duck_on_the_right.h \
  /Users/gabilong/Downloads/ds_visual_novel/build/duck.h \
- /Users/gabilong/Downloads/ds_visual_novel/build/man.h
+ /Users/gabilong/Downloads/ds_visual_novel/build/man.h \
+ /Users/gabilong/Downloads/ds_visual_novel/build/general.h \
+ /Users/gabilong/Downloads/ds_visual_novel/build/blank.h
 /opt/devkitpro/libnds/include/nds.h:
 /opt/devkitpro/calico/include/calico.h:
 /opt/devkitpro/calico/include/calico/types.h:
@@ -233,3 +235,5 @@ main.o: /Users/gabilong/Downloads/ds_visual_novel/source/main.c \
 /Users/gabilong/Downloads/ds_visual_novel/build/duck_on_the_right.h:
 /Users/gabilong/Downloads/ds_visual_novel/build/duck.h:
 /Users/gabilong/Downloads/ds_visual_novel/build/man.h:
+/Users/gabilong/Downloads/ds_visual_novel/build/general.h:
+/Users/gabilong/Downloads/ds_visual_novel/build/blank.h:
