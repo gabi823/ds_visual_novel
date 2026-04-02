@@ -42,7 +42,7 @@ ds_visual_novel/
 
 2. Open `ds_visual_novel.nds` in the melonDS application.
 
-3. Tap the screen or press A to advance through the story.
+3. Click the screen to continue the story.
 
 <img width="260" height="386" alt="image" src="https://github.com/user-attachments/assets/c04978b4-68fb-4fd1-815f-c8647f367ee2" />
 
