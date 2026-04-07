@@ -355,7 +355,6 @@ int main(void) {
             loadBackground(activeSet->bg);
             lastSceneSet = currentSceneSet;
         }
-
         if (needsRedraw) {
             Scene current = activeScene[currentLine];
 
@@ -367,14 +366,13 @@ int main(void) {
             consoleSelect(&topScreen);
             consoleClear();
 
+            // Black text on backgrounds, white text on blank/none
+            if (current.bg != NULL || activeSet->bg->bitmap != NULL) {
+                BG_PALETTE[255] = RGB15(0, 0, 0);
+            } else {
+                BG_PALETTE[255] = RGB15(31, 31, 31);
+            }
             int baseRow = getTextRow(current.position);
-
-            // Set text color 
-            const char* textColor = (current.bg != NULL || activeSet->bg->bitmap != NULL) 
-                            ? COLOR_BLACK 
-                            : COLOR_RESET;
-
-            printf("%s", textColor);
 
             if (current.type == TEXT_DIALOGUE && current.speaker != NULL) {
                 char nameBuffer[64];
@@ -383,7 +381,6 @@ int main(void) {
             }
             printWrapped(baseRow, current.text, current.offsetX, current.offsetY);
 
-            printf(COLOR_RESET);
             needsRedraw = 0;
         }
 
