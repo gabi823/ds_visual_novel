@@ -8,6 +8,7 @@
 #include "man.h"
 #include "general.h"
 #include "blank.h"
+#include "store.h"
 
 #define COLOR_BLACK  "\x1b[30m"
 #define COLOR_RESET  "\x1b[39m"
@@ -97,6 +98,7 @@ Background duck = { duckBitmap, duckPal };
 Background man = { manBitmap, manPal };
 Background general = { generalBitmap, generalPal };
 Background blank = { blankBitmap, blankPal };
+Background store = { storeBitmap, storePal };
 
 
 
@@ -238,8 +240,8 @@ Scene scene6[] = {
     {"'I'll buy you some grapes, so you won't have to ask anymore.'", "Man", TEXT_MIDDLE, TEXT_DIALOGUE, &man},
     // Example: if you had a store background, you'd swap it here:
     // {"So they walked to the store...", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_store},
-    {"So they walked to the store and the man bought some grapes.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"He gave one to the duck and the duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
+    {"So they walked to the store and the man bought some grapes.", NULL, TEXT_BOTTOM, TEXT_NARRATION, &store},
+    {"He gave one to the duck and the duck said,", NULL, TEXT_BOTTOM, TEXT_NARRATION, &store},
     {"'Hmmm... No thanks.'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
     {"'But y'know what sounds good?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
     {"'It would make my day...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
@@ -248,9 +250,9 @@ Scene scene6[] = {
     {"'Do you think this store...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
     {"'Has any...'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
     {"'lemonade?'", "Duck", TEXT_MIDDLE, TEXT_DIALOGUE, &duck},
-    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade},
-    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &bg_lemonade}
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &duck},
+    {"Then he waddled away. \n (Waddle waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &duck},
+    {"Then he waddled away. \n (Waddle waddle)", NULL, TEXT_BOTTOM, TEXT_NARRATION, &duck}
 };
 
 Scene firstChoiceRefuse[] = {
