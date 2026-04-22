@@ -1,1 +1,0 @@
-duck.o: duck.s
