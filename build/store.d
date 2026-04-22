@@ -1,1 +1,0 @@
-store.o: store.s
